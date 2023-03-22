@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Property\Http\Controllers\Admin\PropertyController as AdminPropertyController;
-use Modules\Property\Http\Controllers\PropertyController;
+use Modules\Property\app\Http\Controllers\Admin\PropertyController as AdminPropertyController;
+use Modules\Property\app\Http\Controllers\PropertyController;
 
 // use Modules\Property\Http\Controllers\Admin\PropertyController;
 

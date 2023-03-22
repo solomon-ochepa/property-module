@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Property\Http\Controllers\Admin;
+namespace Modules\Property\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePropertyRequest;
 use App\Http\Requests\UpdatePropertyRequest;
 use App\Models\Attribute;
-use App\Models\Property;
+use Modules\Property\app\Models\Property;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;

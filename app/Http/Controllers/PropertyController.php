@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\Property\Http\Controllers;
+namespace Modules\Property\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Property;
+use Modules\Property\app\Models\Property;
 use Illuminate\Http\Response;
 
 class PropertyController extends Controller
