@@ -5,7 +5,7 @@
         </h2>
     </x-slot> --}}
 
-    <section class="my-3">
+    <section class="layout-top-spacing mb-4">
         <div class="card">
             <h2 class="card-header mb-0 border-bottom ">{{ $title }}</h2>
 
