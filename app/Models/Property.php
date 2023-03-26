@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Address\app\Models\Address;
 use Modules\Attribute\app\Models\Attributable;
 use Modules\Category\app\Models\Category;
 use Modules\Status\app\Models\Status;
@@ -21,7 +22,7 @@ class Property extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'slug', 'address', 'price', 'type', 'description'
+        'title', 'slug', 'address_id', 'price', 'type', 'description'
     ];
 
     /**
@@ -33,7 +34,7 @@ class Property extends Model
     {
         return [
             'slug' => [
-                'source' => 'name'
+                'source' => 'title'
             ]
         ];
     }
@@ -41,6 +42,11 @@ class Property extends Model
     public function status()
     {
         return $this->belongsTo(Status::class, 'status_code', 'code');
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
     }
 
     public function categories()

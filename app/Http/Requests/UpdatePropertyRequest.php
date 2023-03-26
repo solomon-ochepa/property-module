@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Property\App\Http\Requests;
+namespace Modules\Property\app\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,11 +14,14 @@ class UpdatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'property.name'     => ['required', 'string', 'max:200'],
-            'property.address'  => ['required', 'string', 'max:200'],
+            'property.title'     => ['required', 'string', 'max:200'],
+            'address.country'   => ['required', 'string', 'max:120'],
+            'address.state'   => ['required', 'string', 'max:120'],
+            'address.city'   => ['required', 'string', 'max:120'],
+            'address.area'   => ['nullable', 'string', 'max:120'],
+            'address.address'   => ['nullable', 'string', 'max:120'],
             'property.price'    => ['required', 'numeric', 'min:1'],
-            'category'          => ['nullable', 'string'],
-            'images'            => ['required', 'image', 'mimes:png,jpg,svg,webp,tiff,tif'],
+            'images'            => ['nullable', 'image', 'mimes:png,jpg,svg,webp,tiff,tif']
         ];
     }
 

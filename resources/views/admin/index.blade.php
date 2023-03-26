@@ -1,9 +1,9 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+    <x-slot name="header">
+        <h2 class="h4 fw-normal m-0 text-uppercase">
+            {{ $head['title'] ?? __('Recent Properties') }}
         </h2>
-    </x-slot> --}}
+    </x-slot>
 
     <div class="my-3">
         <div class="card">
@@ -35,7 +35,7 @@
                 </div>
             @endcan
 
-            <livewire:property.admin.index />
+            <livewire:property::admin />
         </div>
     </div>
 </x-app-layout>

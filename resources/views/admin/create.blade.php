@@ -1,14 +1,12 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+    <x-slot name="header">
+        <h2 class="h4 fw-normal m-0 text-uppercase">
+            {{ $head['title'] ?? __('Create Property') }}
         </h2>
-    </x-slot> --}}
+    </x-slot>
 
     <section class="layout-top-spacing mb-4">
         <div class="card">
-            <h2 class="card-header mb-0 border-bottom ">{{ $title }}</h2>
-
             <form method="POST" action="{{ route('admin.property.store') }}" enctype="multipart/form-data">
                 @csrf
 
@@ -18,14 +16,16 @@
                             <x-alert />
 
                             <div class="row gy-3">
+                                {{-- Title --}}
                                 <div class="col-col-12">
-                                    <input type="text" class="form-control" name="property[name]" placeholder="Name"
-                                        value="{{ old('property.name') }}" required />
-                                    @error('property.name')
+                                    <input type="text" class="form-control" name="property[title]"
+                                        placeholder="Title" value="{{ old('property.title') }}" required />
+                                    @error('property.title')
                                         <div class="text-danger form-text">{{ $message }}</div>
                                     @enderror
                                 </div>
 
+                                {{-- Description --}}
                                 <div class="col-col-12">
                                     <textarea rows="4" class="form-control" name="property[description]" placeholder="Description"
                                         value="{{ old('property.description') }}" required></textarea>
@@ -34,18 +34,57 @@
                                     @enderror
                                 </div>
 
-                                {{-- <h6 class="mb-0">Address</h6> --}}
-                                <div class="col-col-12">
-                                    <input type="text" class="form-control" name="property[address]"
-                                        placeholder="Address" value="{{ old('property.address') }}" />
-                                    <div class="form-text text-muted">
-                                        Address, Area / Town / L.G.A / City, State, Country
+                                {{-- Address --}}
+                                <div class="container">
+                                    <div class="row mt-0 gy-3">
+                                        {{-- Address --}}
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="address[description]"
+                                                placeholder="Address" value="{{ old('address.description') }}" />
+                                            @error('address.description')
+                                                <div class="text-danger form-text">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Area --}}
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" name="address[area]"
+                                                placeholder="Area" value="{{ old('address.area') }}" />
+                                            @error('address.area')
+                                                <div class="text-danger form-text">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- City --}}
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="address[city]"
+                                                placeholder="City" value="{{ old('address.city') }}" />
+                                            @error('address.city')
+                                                <div class="text-danger form-text">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- State --}}
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="address[state]"
+                                                placeholder="State" value="{{ old('address.state') }}" />
+                                            @error('address.state')
+                                                <div class="text-danger form-text">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        {{-- Country --}}
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="address[country]"
+                                                placeholder="Country" value="{{ old('address.country') }}" />
+                                            @error('address.country')
+                                                <div class="text-danger form-text">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    @error('property.address')
-                                        <div class="text-danger form-text">{{ $message }}</div>
-                                    @enderror
                                 </div>
 
+                                {{-- Price --}}
                                 <div class="col-md-6">
                                     <input type="number" min="1" step="1" class="form-control"
                                         name="property[price]" placeholder="Price"
@@ -55,6 +94,7 @@
                                     @enderror
                                 </div>
 
+                                {{-- Category --}}
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="category" placeholder="Category" />
                                     @error('category')

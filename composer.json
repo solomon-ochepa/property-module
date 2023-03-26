@@ -18,6 +18,7 @@
     "require": {
         "nwidart/laravel-modules": "*",
         "joshbrw/laravel-module-installer": "*",
+        "mhmiton/laravel-modules-livewire": "*",
         "solomon-ochepa/category-module": "*",
         "solomon-ochepa/attribute-module": "*",
         "solomon-ochepa/status-module": "*"

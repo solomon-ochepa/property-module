@@ -3,15 +3,16 @@
 namespace Modules\Property\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePropertyRequest;
-use App\Http\Requests\UpdatePropertyRequest;
-use App\Models\Attribute;
 use Modules\Property\app\Models\Property;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Plank\Mediable\Facades\MediaUploader;
 use Illuminate\Support\Str;
+use Modules\Address\app\Models\Address;
+use Modules\Attribute\app\Models\Attribute;
+use Modules\Property\App\Http\Requests\StorePropertyRequest;
+use Modules\Property\App\Http\Requests\UpdatePropertyRequest;
 
 class PropertyController extends Controller
 {
@@ -43,15 +44,30 @@ class PropertyController extends Controller
      */
     public function store(StorePropertyRequest $request): RedirectResponse
     {
+        // Address
+        $address = Address::firstOrCreate(Arr::except($request->address, 'description'), $request->address);
+
         // property
-        $property = Property::firstOrCreate(Arr::only($request->property, ['name', 'address'],), $request->property);
+        $property = Property::firstOrCreate([
+            'title' => $request->property['title'],
+            'address_id'    => $address->id,
+        ], $request->property);
 
-        // Attributes
-        foreach ($request['attributes'] as $key => $data) {
-            $attribute          = Attribute::firstOrCreate(['name' => Str::singular($data['name'])]);
-            $attribute_option   = $attribute->options()->firstOrCreate(['value' => $data['value']]);
+        if ($request->filled('category')) {
+            // Category
+            // $category_csv = $request->category;
+        }
 
-            $property->attributables()->firstOrCreate(['attribute_option_id' => $attribute_option->id]);
+        if ($request->filled('attributes')) {
+            // Attributes
+            foreach ($request['attributes'] as $key => $data) {
+                if ($data['name']) {
+                    $attribute          = Attribute::firstOrCreate(['name' => Str::singular($data['name'])]);
+                    $attribute_option   = $attribute->options()->firstOrCreate(['value' => $data['value']]);
+
+                    $property->attributables()->firstOrCreate(['attribute_option_id' => $attribute_option->id]);
+                }
+            }
         }
 
         // Medias
@@ -86,6 +102,9 @@ class PropertyController extends Controller
     {
         // property
         $property->update($request['property']);
+
+        // property
+        $property->address()->update($request['address']);
 
         // Attributes
         if ($request->filled('attributes')) {
