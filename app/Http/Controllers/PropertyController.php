@@ -16,6 +16,7 @@ class PropertyController extends Controller
     public function index(): Response
     {
         $this->data['head']['title'] = 'Our Properties';
+
         $this->data['properties'] = Property::where('active', 1)->latest()->get();
 
         return response(view('property::index', $this->data));
@@ -26,7 +27,12 @@ class PropertyController extends Controller
      */
     public function show(Property $property): Response
     {
-        $this->data['head']['title'] = $property->name . ' @ ' . $property->address;
+        // Can't view property without media
+        if (!$property->hasMedia(['image', 'featured'])) {
+            return redirect(route('property.index'));
+        }
+
+        $this->data['head']['title'] = $property->title . ' @' . trim($property->address->address, '.');
 
         $this->data['property'] = $property;
 

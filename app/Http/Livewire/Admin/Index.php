@@ -13,13 +13,18 @@ class Index extends Component
     public $selected = [];
 
     public $search = "";
-    public $limit = 30;
+    public $limit = 10;
     public $page = 1;
 
     protected $queryString = [
         'search'    => ['except' => ''],
         'page'      => ['except' => 1],
     ];
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
@@ -35,9 +40,10 @@ class Index extends Component
                 ->orWhere('addresses.country', 'like', '%' . $this->search . '%')
                 ->orWhere('price', 'like', '%' . $this->search . '%')
                 ->orWhere('properties.description', 'like', '%' . $this->search . '%')
+                ->latest()
                 ->paginate($this->limit);
         } else {
-            $data['properties'] = Property::paginate($this->limit);
+            $data['properties'] = Property::latest()->paginate($this->limit);
         }
 
         return view('property::livewire.admin.index', $data);

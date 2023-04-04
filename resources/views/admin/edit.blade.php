@@ -7,8 +7,6 @@
 
     <section class="layout-top-spacing mb-4">
         <div class="card">
-            <h2 class="card-header mb-0 border-bottom ">{{ $title }}</h2>
-
             <livewire:property.admin.edit :property="$property" />
         </div>
     </section>

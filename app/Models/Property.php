@@ -39,6 +39,16 @@ class Property extends Model
         ];
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
     public function status()
     {
         return $this->belongsTo(Status::class, 'status_code', 'code');

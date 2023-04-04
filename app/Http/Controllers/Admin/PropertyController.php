@@ -11,8 +11,8 @@ use Plank\Mediable\Facades\MediaUploader;
 use Illuminate\Support\Str;
 use Modules\Address\app\Models\Address;
 use Modules\Attribute\app\Models\Attribute;
-use Modules\Property\App\Http\Requests\StorePropertyRequest;
-use Modules\Property\App\Http\Requests\UpdatePropertyRequest;
+use Modules\Property\app\Http\Requests\StorePropertyRequest;
+use Modules\Property\app\Http\Requests\UpdatePropertyRequest;
 
 class PropertyController extends Controller
 {
@@ -77,7 +77,7 @@ class PropertyController extends Controller
                 ->onDuplicateUpdate()
                 ->upload();
 
-            $property->syncMedia($media, 'image');
+            $property->attachMedia($media, 'image');
         }
 
         session()->flash('status', 'Property created successfully');

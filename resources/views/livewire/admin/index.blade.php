@@ -8,7 +8,7 @@
             <div class="dataTables_length" id="maintable_length">
                 <label class="d-flex justify-content-start align-items-center">
                     <span class="me-1">Show</span>
-                    <select wire:model.lazy="limit"
+                    <select wire:model="limit"
                         class="custom-select custom-select-sm form-control form-control-sm w-25 me-1">
                         <option value="10">10</option>
                         <option value="25">25</option>
@@ -57,14 +57,12 @@
                             </td> --}}
                         <td>
                             <div class="media">
-                                <div class="avatar me-2">
-                                    @if ($property->hasMedia(['image']))
+                                @if ($property->hasMedia(['image']))
+                                    <div class="avatar me-2">
                                         <img alt="avatar" src="{{ $property->media('image')->first()->getUrl() }}"
                                             class="rounded-circle" />
-                                    @else
-                                        <i class="fa fa-home rounded-circle"></i>
-                                    @endif
-                                </div>
+                                    </div>
+                                @endif
 
                                 <div class="media-body align-self-center">
                                     <h6 class="mb-0" style="white-space: normal">{{ $property->title }}</h6>
@@ -147,6 +145,8 @@
             <p class="text-center py-4">
                 No record found.
             </p>
+        @else
+            {{ $properties->links() }}
         @endif
     </div>
 </div>
